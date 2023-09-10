@@ -11,43 +11,67 @@ function App() {
   const [rectified, setRectified] = useState("")
   const [concise, setConcise] = useState("")
   const [verbose, setVerbose] = useState("")
+  const [highlightedText, setHighlightedText] = useState("")
 
-  // function handleClick() {
+  var config = { headers: {  
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'}
+  }
+
+  function extractSelectedText() {
+    var selectedText = window.getSelection().toString();
+    return selectedText;
+  }
+  
+
+  function handleClick() {
+
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var activeTab = tabs[0];
+
+      // Use the chrome.scripting API to inject a content script
+      chrome.scripting.executeScript(
+        {
+          target: { tabId: activeTab.id },
+          function: extractSelectedText
+        },
+        function (result) {
+          // Handle the result returned by the content script
+          var selectedText = result[0].result;
+          setHighlightedText(selectedText)
+          console.log(selectedText);
+
+          axios.post("https://pennapps.onrender.com/rectify", { sentence: selectedText }, config)
+               .then(res => setRectified(res.data.completion))
+
+          axios.post("https://pennapps.onrender.com/concise", { sentence: selectedText }, config)
+               .then(res => setConcise(res.data.completion))
+
+          axios.post("https://pennapps.onrender.com/verbose", { sentence: selectedText }, config)
+               .then(res => setVerbose(res.data.completion))
+        }
+      )
+
+  })
+}
+
+  // useEffect( () => {
   //   if (window.getSelection) {
 
-  //     const highlightedText = window.getSelection().toString()
+  //     setHighlightedText(window.getSelection().toString())
 
   //     console.log(highlightedText)
 
-  //     axios.post("http://127.0.0.1:8000/rectify", { sentence: highlightedText })
+  //     axios.post("https://pennapps.onrender.com/rectify", { sentence: highlightedText })
   //          .then(res => setRectified(res.data.completion))
 
-  //     axios.post("http://127.0.0.1:8000/concise", { sentence: highlightedText })
+  //     axios.post("https://pennapps.onrender.com/concise", { sentence: highlightedText })
   //          .then(res => setConcise(res.data.completion))
 
-  //     axios.post("http://127.0.0.1:8000/verbose", { sentence: highlightedText })
+  //     axios.post("https://pennapps.onrender.com/verbose", { sentence: highlightedText })
   //          .then(res => setVerbose(res.data.completion))
-
   //   }
-  // }
-
-  useEffect( () => {
-    if (window.getSelection) {
-
-      const highlightedText = window.getSelection().toString()
-
-      console.log(highlightedText)
-
-      axios.post("https://pennapps.onrender.com/rectify", { sentence: highlightedText })
-           .then(res => setRectified(res.data.completion))
-
-      axios.post("https://pennapps.onrender.com/concise", { sentence: highlightedText })
-           .then(res => setConcise(res.data.completion))
-
-      axios.post("https://pennapps.onrender.com/verbose", { sentence: highlightedText })
-           .then(res => setVerbose(res.data.completion))
-    }
-  }, [])
+  // }, [window.getSelection, highlightedText])
 
   useEffect(() => {
     const timeout1 = setTimeout(() => {
@@ -117,11 +141,11 @@ function App() {
               <Clipboard
           copied={copied1}
           setCopied={setCopied1}
-          text= { rectified }
+          text= {rectified}
           color='white'
         /> </div>
         )}
-        { rectified }
+        {rectified}
           </div>
         </div>
 
@@ -135,11 +159,11 @@ function App() {
             <Clipboard
             copied={copied2}
             setCopied={setCopied2}
-            text= { concise }
+            text= {concise}
             color='white'
           /></div>
           )}
-        { concise }
+        {concise}
         </div>
 
           <h4 className="sub-head">Clearer, more verbose</h4>
@@ -151,12 +175,14 @@ function App() {
             <Clipboard
             copied={copied3}
             setCopied={setCopied3}
-            text={ verbose }
+            text={verbose}
             color='white'
           /></div>
           )}
-        { verbose }
+        {verbose}
         </div>
+
+        <button onClick={handleClick}>Create</button>
 
       </div>
     </div>

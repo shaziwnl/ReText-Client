@@ -1,0 +1,6 @@
+POST https://pennapps.onrender.com/concise
+Content-Type: application/json
+
+{
+    "sentence": "The selected text is then logged to the console, but you can use it as needed within your extension"
+}
