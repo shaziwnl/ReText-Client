@@ -1,8 +1,39 @@
-# React + Vite
+# 📜 ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
+* [Backend](https://github.com/shaziwnl/PennApps-Flask-Backend)
+* [Usage](#usage)
+* [Technologies Used](#technologies-used)
+* [Project Status](#project-status)
+* [Contact](#contact)
+<!-- * [License](#license) -->
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Usage
+Extension will be live soon, thank you for your patience \
+Step 1 - Highlight any text you want to rectify/rephrase \
+Step 2 - Open the extension \
+Step 3 - Copy the text that you would like to use
+
+# Demo
+
+
+## Technologies Used
+- HTML/CSS
+- JavaScript (React)
+- Python (Flask)
+
+
+## Project Status
+Project is *in development*
+
+
+## Contact
+Sharang Goel: sharang.goel@uwaterloo.ca \
+Hetarth Mahida: hetarthmahida@gmail.com \
+Pranav Vyas: 1pranavvyas@gmail.com
+
+
+
+
+
