@@ -55,23 +55,9 @@ function App() {
   })
 }
 
-  // useEffect( () => {
-  //   if (window.getSelection) {
-
-  //     setHighlightedText(window.getSelection().toString())
-
-  //     console.log(highlightedText)
-
-  //     axios.post("https://pennapps.onrender.com/rectify", { sentence: highlightedText })
-  //          .then(res => setRectified(res.data.completion))
-
-  //     axios.post("https://pennapps.onrender.com/concise", { sentence: highlightedText })
-  //          .then(res => setConcise(res.data.completion))
-
-  //     axios.post("https://pennapps.onrender.com/verbose", { sentence: highlightedText })
-  //          .then(res => setVerbose(res.data.completion))
-  //   }
-  // }, [window.getSelection, highlightedText])
+  useEffect(() => {
+    handleClick()
+  }, [])
 
   useEffect(() => {
     const timeout1 = setTimeout(() => {
