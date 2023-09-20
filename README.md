@@ -8,9 +8,10 @@
 * [Contact](#contact)
 <!-- * [License](#license) -->
 
+## Download
+Extension will be live soon, thank you for your patience
 
 ## Usage
-Extension will be live soon, thank you for your patience \
 Step 1 - Highlight any text you want to rectify/rephrase \
 Step 2 - Open the extension \
 Step 3 - Copy the text that you would like to use
