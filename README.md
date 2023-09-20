@@ -16,8 +16,7 @@ Step 2 - Open the extension \
 Step 3 - Copy the text that you would like to use
 
 # Demo
-![](shaziwnl/pennapps-client/assets/121330440/6a2d4a9a-815d-4077-8c30-b335d355fcbf){width=300 height=200}
-shaziwnl/pennapps-client/assets/121330440/6a2d4a9a-815d-4077-8c30-b335d355fcbf
+![ReText Demo](https://github.com/shaziwnl/pennapps-client/assets/121330440/49a0043f-df05-485e-b2f2-6dda74e891c1)
 
 
 ## Technologies Used
