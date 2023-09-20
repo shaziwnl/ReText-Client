@@ -16,7 +16,7 @@ Step 2 - Open the extension \
 Step 3 - Copy the text that you would like to use
 
 # Demo
-<img src="https://github.com/shaziwnl/pennapps-client/assets/121330440/49a0043f-df05-485e-b2f2-6dda74e891c1" width="600" height="700">
+<img src="https://github.com/shaziwnl/pennapps-client/assets/121330440/49a0043f-df05-485e-b2f2-6dda74e891c1" width="800" height="800">
 
 
 ## Technologies Used
