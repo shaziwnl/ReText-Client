@@ -1,4 +1,4 @@
-# 📜 ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
+![ReText Demo](https://github.com/shaziwnl/pennapps-client/assets/121330440/6b0d6d97-2a41-4813-8e9d-628564c9c05b)# 📜 ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
 
 ## Table of Contents
 * [Backend](https://github.com/shaziwnl/PennApps-Flask-Backend)
@@ -16,7 +16,7 @@ Step 2 - Open the extension \
 Step 3 - Copy the text that you would like to use
 
 # Demo
-https://github.com/shaziwnl/pennapps-client/assets/121330440/6a2d4a9a-815d-4077-8c30-b335d355fcbf
+shaziwnl/pennapps-client/assets/121330440/6a2d4a9a-815d-4077-8c30-b335d355fcbf
 
 
 ## Technologies Used
