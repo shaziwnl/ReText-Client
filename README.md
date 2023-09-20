@@ -1,4 +1,4 @@
-![ReText Demo](https://github.com/shaziwnl/pennapps-client/assets/121330440/6b0d6d97-2a41-4813-8e9d-628564c9c05b)# 📜 ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
+# 📜 ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
 
 ## Table of Contents
 * [Backend](https://github.com/shaziwnl/PennApps-Flask-Backend)
