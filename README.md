@@ -29,6 +29,9 @@ Step 3 - Copy the text that you would like to use
 ## Project Status
 Project is *in development*
 
+## Improvements
+- Refining the 'verbose' route
+
 
 ## Contact
 Sharang Goel: sharang.goel@uwaterloo.ca \
