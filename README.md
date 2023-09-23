@@ -23,7 +23,7 @@ Step 3 - Copy the text that you would like to use
 ## Technologies Used
 - HTML/CSS
 - JavaScript (React)
-- Python (Flask)
+- Python (Flask - WSGI server with Waitress)
 
 
 ## Project Status
