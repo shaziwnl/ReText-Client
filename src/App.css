@@ -82,3 +82,7 @@ body {
   border-radius: 3px;
   opacity: 100%;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
