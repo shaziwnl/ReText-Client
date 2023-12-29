@@ -27,7 +27,7 @@ function App() {
   function handleClick() {
 
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var activeTab = tabs[0];
+      var activeTab = tabs[0]; // Get the tab we are currently on
 
       // Use the chrome.scripting API to inject a content script
       chrome.scripting.executeScript(
