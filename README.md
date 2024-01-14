@@ -31,7 +31,7 @@ Step 3 - Copy the text that you would like to use
 Project is *in development*
 
 ## Improvements
-- Refining the 'verbose' route
+- Additional testing for best prompts
 
 
 ## Contact
