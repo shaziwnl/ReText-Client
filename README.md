@@ -9,7 +9,7 @@
 <!-- * [License](#license) -->
 
 ## Download
-Extension will be live soon, thank you for your patience
+[Extension is available here!](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)
 
 ## Usage
 Step 1 - Highlight any text you want to rectify/rephrase \
