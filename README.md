@@ -10,6 +10,7 @@
 
 ## Download
 [Extension is available here!](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)
+Please give us a high rating, we will keep working on more optimized prompts and more features as we move forward
 
 ## Usage
 Step 1 - Highlight any text you want to rectify/rephrase \
