@@ -9,7 +9,8 @@
 <!-- * [License](#license) -->
 
 ## Download
-Extension will be live soon, thank you for your patience
+[Extension is available here!](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)<br>
+A high rating would be greatly appreciated, we will keep working on more optimized prompts and more features as we move forward, thank you!
 
 ## Usage
 Step 1 - Highlight any text you want to rectify/rephrase \
@@ -31,7 +32,7 @@ Step 3 - Copy the text that you would like to use
 Project is *in development*
 
 ## Improvements
-- Refining the 'verbose' route
+- Additional testing for best prompts
 
 
 ## Contact
