@@ -25,7 +25,6 @@ function App() {
   
 
   function handleClick() {
-
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       var activeTab = tabs[0]; // Get the tab we are currently on
 
@@ -41,19 +40,20 @@ function App() {
           setHighlightedText(selectedText)
           console.log(selectedText);
 
-          axios.post("https://pennapps.onrender.com/rectify", { sentence: selectedText }, config)
-               .then(res => setRectified(res.data.completion))
+          if (selectedText) {
+            axios.post("https://pennapps.onrender.com/rectify", { sentence: selectedText }, config)
+                .then(res => setRectified(res.data.completion))
 
-          axios.post("https://pennapps.onrender.com/concise", { sentence: selectedText }, config)
-               .then(res => setConcise(res.data.completion))
+            axios.post("https://pennapps.onrender.com/concise", { sentence: selectedText }, config)
+                .then(res => setConcise(res.data.completion))
 
-          axios.post("https://pennapps.onrender.com/verbose", { sentence: selectedText }, config)
-               .then(res => setVerbose(res.data.completion))
+            axios.post("https://pennapps.onrender.com/verbose", { sentence: selectedText }, config)
+                .then(res => setVerbose(res.data.completion))
+          }
         }
       )
-
-  })
-}
+    })
+  }
 
   useEffect(() => {
     handleClick()
@@ -63,7 +63,6 @@ function App() {
     const timeout1 = setTimeout(() => {
       if (copied1) setCopied1(false)
     }, 1000)
-
     return () => clearTimeout(timeout1)
   }, [copied1])
 
@@ -72,7 +71,6 @@ function App() {
     const timeout2 = setTimeout(() => {
       if (copied2) setCopied2(false)
     }, 1000)
-
     return () => clearTimeout(timeout2)
   }, [copied2])
   
@@ -81,7 +79,6 @@ function App() {
     const timeout3 = setTimeout(() => {
       if (copied3) setCopied3(false)
     }, 1000)
-
     return () => clearTimeout(timeout3)
   }, [copied3])
   
@@ -131,7 +128,7 @@ function App() {
           color='white'
         /> </div>
         )}
-        {rectified}
+        {(!rectified && highlightedText) ?  <h1>Loading...</h1> : rectified}
           </div>
         </div>
 
@@ -149,7 +146,7 @@ function App() {
             color='white'
           /></div>
           )}
-        {concise}
+        {(!concise && highlightedText) ?  <h1>Loading...</h1> : concise}
         </div>
 
           <h4 className="sub-head">Clearer, more verbose</h4>
@@ -165,13 +162,13 @@ function App() {
             color='white'
           /></div>
           )}
-        {verbose}
+        {(!verbose && highlightedText) ?  <h1>Loading...</h1> : verbose}
         </div>
 
         {/* <button onClick={handleClick}>Create</button> */}
 
+        </div>
       </div>
-    </div>
   </>
 )
 }
