@@ -2,6 +2,7 @@ import './App.css'
 import React,{ useState, useEffect } from "react";
 import Clipboard from 'react-clipboard-animation';
 import axios from "axios";
+import loadingGif from "../images/loading.gif"
 
 function App() {
   // All States
