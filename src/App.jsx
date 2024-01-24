@@ -129,7 +129,7 @@ function App() {
           color='white'
         /> </div>
         )}
-        {(!rectified && highlightedText) ?  <h1>Loading...</h1> : rectified}
+        {(!rectified && highlightedText) ?  <h2>Loading...</h2> : rectified}
           </div>
         </div>
 
@@ -147,7 +147,7 @@ function App() {
             color='white'
           /></div>
           )}
-        {(!concise && highlightedText) ?  <h1>Loading...</h1> : concise}
+        {(!concise && highlightedText) ?  <h2>Loading...</h2> : concise}
         </div>
 
           <h4 className="sub-head">Clearer, more verbose</h4>
@@ -163,7 +163,7 @@ function App() {
             color='white'
           /></div>
           )}
-        {(!verbose && highlightedText) ?  <h1>Loading...</h1> : verbose}
+        {(!verbose && highlightedText) ?  <h2>Loading...</h2> : verbose}
         </div>
 
         {/* <button onClick={handleClick}>Create</button> */}
