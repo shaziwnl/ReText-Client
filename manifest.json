@@ -5,9 +5,9 @@
 	"description": "An AI based text processing tool to rectify and simplify your texts so that your texting experience is as smooth as possible.",
 
 	"icons": {
-		"16": "./assets/full-logo.png",
-		"48": "./assets/full-logo.png",
-		"128": "./assets/full-logo.png"
+		"16": "./assets/logo-128.png",
+		"48": "./assets/logo-128.png",
+		"128": "./assets/logo-128.png"
 	},
 	
 
