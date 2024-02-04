@@ -1,8 +1,9 @@
 import './App.css'
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Clipboard from 'react-clipboard-animation';
+import Loading from './components/Loading';
 import axios from "axios";
-import loadingGif from "../images/loading.gif"
+
 
 function App() {
   // All States
@@ -116,62 +117,57 @@ function App() {
   return (
     <>
       <div className='cards'>
+
         <div className = "card">
           <h3 className='head'>Rectified</h3>
-          <div onMouseEnter={handleMouseEnter1}
-               onMouseLeave={handleMouseLeave1} className="content">
-          {isButtonVisible1 && (
-            <div class="float">
-              <Clipboard
-          copied={copied1}
-          setCopied={setCopied1}
-          text= {rectified}
-          color='white'
-        /> </div>
-        )}
-        {(!rectified && highlightedText) ?  <h2>Loading...</h2> : rectified}
+          <div onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1} className="content">
+            {isButtonVisible1 && (
+              <div class="float">
+                <Clipboard
+                copied={copied1}
+                setCopied={setCopied1}
+                text= {rectified}
+                color='white'
+                /> 
+              </div>)}
+            {(!rectified && highlightedText) ?  <Loading/> : rectified}
           </div>
         </div>
 
         <div className = "card">
           <h4 className='head'>Rephrased</h4>
           <h4 className="sub-head">Concise, less wordy</h4>
-          <div onMouseEnter={handleMouseEnter2}
-               onMouseLeave={handleMouseLeave2} className="content">
-          {isButtonVisible2 && (
-            <div class="float">
-            <Clipboard
-            copied={copied2}
-            setCopied={setCopied2}
-            text= {concise}
-            color='white'
-          /></div>
-          )}
-        {(!concise && highlightedText) ?  <h2>Loading...</h2> : concise}
-        </div>
+          <div onMouseEnter={handleMouseEnter2} onMouseLeave={handleMouseLeave2} className="content">
+            {isButtonVisible2 && (
+              <div class="float">
+                <Clipboard
+                copied={copied2}
+                setCopied={setCopied2}
+                text= {concise}
+                color='white'
+                />
+              </div>)}
+            {(!concise && highlightedText) ?  <Loading/> : concise}
+          </div>
 
           <h4 className="sub-head">Clearer, more verbose</h4>
-          <div onMouseEnter={handleMouseEnter3}
-          onMouseLeave={handleMouseLeave3} className="content">
-
-          {isButtonVisible3 && (
-            <div class="float">
-            <Clipboard
-            copied={copied3}
-            setCopied={setCopied3}
-            text={verbose}
-            color='white'
-          /></div>
-          )}
-        {(!verbose && highlightedText) ?  <h2>Loading...</h2> : verbose}
+          <div onMouseEnter={handleMouseEnter3} onMouseLeave={handleMouseLeave3} className="content">
+            {isButtonVisible3 && (
+              <div class="float">
+                <Clipboard
+                copied={copied3}
+                setCopied={setCopied3}
+                text={verbose}
+                color='white'
+                />
+              </div>)}
+            {(!verbose && highlightedText) ?  <Loading/> : verbose}
+          </div>
         </div>
 
-        {/* <button onClick={handleClick}>Create</button> */}
-
-        </div>
       </div>
-  </>
-)
+    </>
+  )
 }
 
 export default App;
