@@ -29,7 +29,7 @@ Step 3 - Copy the text that you would like to use
 
 
 ## Project Status
-Project is continuous development
+Project is in continuous development
 
 ## Improvements
 - Additional testing for best prompts
