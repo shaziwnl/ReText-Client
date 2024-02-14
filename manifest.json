@@ -16,7 +16,7 @@
 	},
 
 	
-	"permissions": ["scripting", "activeTab"]
+	"permissions": ["scripting", "activeTab", "clipboardRead"]
 
 	
 }
