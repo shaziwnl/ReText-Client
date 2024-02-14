@@ -2,14 +2,17 @@ import './App.css'
 import React, { useState, useEffect } from "react";
 import Clipboard from 'react-clipboard-animation';
 import Loading from './components/Loading';
+import { Tooltip } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from "axios";
-
+import IOSSwitch from './components/IOSSwitch';
 
 function App() {
   // All States
   const [copied1, setCopied1] = useState(false)
   const [copied2, setCopied2] = useState(false)
   const [copied3, setCopied3] = useState(false)
+  const [useClipboard, setUseClipboard] = useState(false)
   const [rectified, setRectified] = useState("")
   const [concise, setConcise] = useState("")
   const [verbose, setVerbose] = useState("")
@@ -55,11 +58,26 @@ function App() {
         }
       )
     })
+    
   }
 
   useEffect(() => {
     handleClick()
   }, [])
+
+  useEffect(() => {
+    if (useClipboard) {
+      navigator.clipboard.readText()
+      .then(text => {
+        if (text) {
+          console.log(text)
+        } else {
+          console.log("No text copied")
+        }
+      })
+    }
+    
+  }, [useClipboard])
 
   useEffect(() => {
     const timeout1 = setTimeout(() => {
@@ -114,11 +132,14 @@ function App() {
     setIsButtonVisible3(false);
   };
   
+
   return (
     <>
       <div className='cards'>
-
         <div className = "card">
+          <Tooltip title="Uses clipboard if no text is highlighted" placement='right'>
+            <FormControlLabel control={<IOSSwitch checked={useClipboard} onChange={() => setUseClipboard(prev => !prev)}/>} label="Use Clipboard" />
+          </Tooltip>
           <h3 className='head'>Rectified</h3>
           <div onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1} className="content">
             {isButtonVisible1 && (
