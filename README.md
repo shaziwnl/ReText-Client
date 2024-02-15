@@ -9,7 +9,7 @@
 <!-- * [License](#license) -->
 
 ## Download
-[Extension is available here!](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)<br>
+[Extension is available here! (Version 1.2)](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)<br>
 A high rating would be greatly appreciated, we will keep working on more optimized prompts and more features as we move forward, thank you!
 
 ## Usage
