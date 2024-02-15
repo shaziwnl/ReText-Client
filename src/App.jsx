@@ -18,6 +18,7 @@ function App() {
   const [verbose, setVerbose] = useState("")
   const [highlightedText, setHighlightedText] = useState("")
   const [copiedText, setCopiedText] = useState("")
+  const URL = import.meta.env.VITE_URL
 
   var config = { headers: {  
     'Content-Type': 'application/json',
@@ -46,13 +47,13 @@ function App() {
         console.log(selectedText);
 
         if (selectedText) {
-          axios.post("https://pennapps.onrender.com/rectify", { sentence: selectedText }, config)
+          axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
               .then(res => setRectified(res.data.completion))
 
-          axios.post("https://pennapps.onrender.com/concise", { sentence: selectedText }, config)
+          axios.post(`${URL}/concise`, { sentence: selectedText }, config)
               .then(res => setConcise(res.data.completion))
 
-          axios.post("https://pennapps.onrender.com/verbose", { sentence: selectedText }, config)
+          axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
               .then(res => setVerbose(res.data.completion))
         }
       }
@@ -72,13 +73,13 @@ function App() {
       .then(text => {
         if (text && !highlightedText) {
           setCopiedText(text)
-          axios.post("https://pennapps.onrender.com/rectify", { sentence: text }, config)
+          axios.post(`${URL}/rectify`, { sentence: text }, config)
               .then(res => setRectified(res.data.completion))
 
-          axios.post("https://pennapps.onrender.com/concise", { sentence: text }, config)
+          axios.post(`${URL}/concise`, { sentence: text }, config)
               .then(res => setConcise(res.data.completion))
 
-          axios.post("https://pennapps.onrender.com/verbose", { sentence: text }, config)
+          axios.post(`${URL}/verbose`, { sentence: text }, config)
               .then(res => setVerbose(res.data.completion))
         } else {
           console.log("No text copied")
