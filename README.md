@@ -33,6 +33,8 @@ Project is in continuous development
 
 ## Improvements
 - Additional testing for best prompts
+- Shifting from JS to TS
+- Refactoring Backend
 
 
 ## Contact
