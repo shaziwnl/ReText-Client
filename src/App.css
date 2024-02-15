@@ -30,8 +30,10 @@ body {
   border-radius: 10px;
 }
 
+
 .head {
   margin: 0px;
+  margin-bottom: 15px;
   padding: 10px;
   padding-bottom: 5px;
   font-family: 'Roboto', sans-serif;
