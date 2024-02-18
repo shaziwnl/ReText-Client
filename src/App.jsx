@@ -8,11 +8,12 @@ import axios from "axios";
 import IOSSwitch from './components/IOSSwitch';
 
 function App() {
+
   // All States
   const [copied1, setCopied1] = useState(false)
   const [copied2, setCopied2] = useState(false)
   const [copied3, setCopied3] = useState(false)
-  const [useClipboard, setUseClipboard] = useState(false)
+  const [useClipboard, setUseClipboard] = useState(true)
   const [rectified, setRectified] = useState("")
   const [concise, setConcise] = useState("")
   const [verbose, setVerbose] = useState("")
@@ -23,6 +24,37 @@ function App() {
   var config = { headers: {  
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'}
+  }
+
+  // When flip is switched, this function runs
+  function handleSwitch() {
+    if (useClipboard) {
+      chrome.permissions.request({
+        permissions: ['clipboardRead']
+      }, (granted) => {
+        if (granted) {
+          navigator.clipboard.readText()
+          .then(text => {
+            if (text && !highlightedText) {
+              setCopiedText(text)
+              axios.post(`${URL}/rectify`, { sentence: text }, config)
+                  .then(res => setRectified(res.data.completion))
+
+              axios.post(`${URL}/concise`, { sentence: text }, config)
+                  .then(res => setConcise(res.data.completion))
+
+              axios.post(`${URL}/verbose`, { sentence: text }, config)
+                  .then(res => setVerbose(res.data.completion))
+            } else {
+              console.log("No text copied")
+            }
+          })
+        } else {
+          console.log("Not permitted")
+        }
+      })
+    }
+    setUseClipboard(prev => !prev)
   }
 
   function extractSelectedText() {
@@ -61,32 +93,31 @@ function App() {
     })
   }
 
-
-
   useEffect(() => {
     sendHighlightedText()
   }, [])
 
-  useEffect(() => {
-    if (useClipboard) {
-      navigator.clipboard.readText()
-      .then(text => {
-        if (text && !highlightedText) {
-          setCopiedText(text)
-          axios.post(`${URL}/rectify`, { sentence: text }, config)
-              .then(res => setRectified(res.data.completion))
+  // This was being used before using chrome.permissions.request
+  // useEffect(() => {
+  //   if (useClipboard) {
+  //     navigator.clipboard.readText()
+  //     .then(text => {
+  //       if (text && !highlightedText) {
+  //         setCopiedText(text)
+  //         axios.post(`${URL}/rectify`, { sentence: text }, config)
+  //             .then(res => setRectified(res.data.completion))
 
-          axios.post(`${URL}/concise`, { sentence: text }, config)
-              .then(res => setConcise(res.data.completion))
+  //         axios.post(`${URL}/concise`, { sentence: text }, config)
+  //             .then(res => setConcise(res.data.completion))
 
-          axios.post(`${URL}/verbose`, { sentence: text }, config)
-              .then(res => setVerbose(res.data.completion))
-        } else {
-          console.log("No text copied")
-        }
-      })
-    } 
-  }, [useClipboard])
+  //         axios.post(`${URL}/verbose`, { sentence: text }, config)
+  //             .then(res => setVerbose(res.data.completion))
+  //       } else {
+  //         console.log("No text copied")
+  //       }
+  //     })
+  //   } 
+  // }, [useClipboard])
 
   useEffect(() => {
     const timeout1 = setTimeout(() => {
@@ -146,7 +177,7 @@ function App() {
     <>
       <Tooltip title="Uses clipboard if no text is highlighted" placement='right'>
         <FormControlLabel sx={{marginLeft: "235px"}} 
-          control={<IOSSwitch checked={useClipboard} onChange={() => setUseClipboard(prev => !prev)}/>}
+          control={<IOSSwitch checked={!useClipboard} onChange={handleSwitch}/>}
           label="Use Clipboard"
         />
       </Tooltip>
