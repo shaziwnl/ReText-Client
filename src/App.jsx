@@ -61,30 +61,43 @@ function App() {
     })
   }
 
-
-
   useEffect(() => {
     sendHighlightedText()
   }, [])
 
   useEffect(() => {
     if (useClipboard) {
-      navigator.clipboard.readText()
-      .then(text => {
-        if (text && !highlightedText) {
-          setCopiedText(text)
-          axios.post(`${URL}/rectify`, { sentence: text }, config)
-              .then(res => setRectified(res.data.completion))
+      navigator.clipboard.read()
+      .then((clipboardData) => {
+        if (clipboardData && !highlightedText) {
 
-          axios.post(`${URL}/concise`, { sentence: text }, config)
-              .then(res => setConcise(res.data.completion))
+          for (const item of clipboardData) {
+            for (const type of item.types) {
+              if (type === 'text/plain') {
+                item.getType(type)
+                    .then(blob => {
+                      blob.text()
+                          .then(text => {
+                            console.log(text)
+                            setCopiedText(text)
+                            axios.post(`${URL}/rectify`, { sentence: text }, config)
+                                  .then(res => setRectified(res.data.completion))
 
-          axios.post(`${URL}/verbose`, { sentence: text }, config)
-              .then(res => setVerbose(res.data.completion))
+                            axios.post(`${URL}/concise`, { sentence: text }, config)
+                                .then(res => setConcise(res.data.completion))
+
+                            axios.post(`${URL}/verbose`, { sentence: text }, config)
+                                .then(res => setVerbose(res.data.completion))
+                          })
+                    })
+              }
+            }
+          }
         } else {
-          console.log("No text copied")
+          console.log("Option is off")
         }
       })
+      
     } 
   }, [useClipboard])
 
@@ -144,6 +157,7 @@ function App() {
 
   return (
     <>
+      
       <Tooltip title="Uses clipboard if no text is highlighted" placement='right'>
         <FormControlLabel sx={{marginLeft: "235px"}} 
           control={<IOSSwitch checked={useClipboard} onChange={() => setUseClipboard(prev => !prev)}/>}
