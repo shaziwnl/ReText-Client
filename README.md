@@ -25,6 +25,14 @@ Step 3 - Copy the text that you would like to use
 # Demo
 <img src="https://github.com/shaziwnl/pennapps-client/assets/121330440/49a0043f-df05-485e-b2f2-6dda74e891c1" width="700" height="700">
 
+
+<video width="320" height="240">
+  <source src="[movie.mp4](https://github.com/shaziwnl/ReText-Client/assets/121330440/40e9850f-77a7-4c9b-9265-d9ce8492462b)" type="video/mp4">
+</video>
+
+
+
+
 - Note that Grammarly didn't correct non-contextual errors like 'principle' -> 'principal'
 
 ## Technologies Used
