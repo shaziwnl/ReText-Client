@@ -34,7 +34,7 @@ Step 3 - Copy the text that you would like to use
 
 
 ## Project Status
-Project is complete, maintained by [Contact](#contact)
+Project is complete, maintained by Sharang Goel and Hetarth Mahida
 
 ## Improvements
 - Additional testing for best prompts
@@ -43,8 +43,8 @@ Project is complete, maintained by [Contact](#contact)
 
 
 ## Contact
-Sharang Goel: sharang.goel@uwaterloo.ca \
-Hetarth Mahida: hetarthmahida@gmail.com 
+Sharang Goel: sharang.goel@thesymbol.ca \
+Hetarth Mahida: hetarthmahida@thesymbol.ca
 
 
 
