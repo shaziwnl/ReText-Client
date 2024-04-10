@@ -34,7 +34,7 @@ Step 3 - Copy the text that you would like to use
 
 
 ## Project Status
-Project is in continuous development
+Project is complete, maintained by [Contact](#contact)
 
 ## Improvements
 - Additional testing for best prompts
@@ -44,8 +44,7 @@ Project is in continuous development
 
 ## Contact
 Sharang Goel: sharang.goel@uwaterloo.ca \
-Hetarth Mahida: hetarthmahida@gmail.com \
-Pranav Vyas: 1pranavvyas@gmail.com
+Hetarth Mahida: hetarthmahida@gmail.com 
 
 
 
