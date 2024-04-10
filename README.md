@@ -43,8 +43,8 @@ Project is complete, maintained by Sharang Goel and Hetarth Mahida
 
 
 ## Contact
-Sharang Goel: sharang.goel@thesymbol.ca \
-Hetarth Mahida: hetarthmahida@thesymbol.ca
+Sharang Goel: sharang.goel@thesymbol.ca or sharang.goel@uwaterloo.ca\
+Hetarth Mahida: hetarthmahida@thesymbol.ca or hbmahida@uwaterloo.ca
 
 
 
