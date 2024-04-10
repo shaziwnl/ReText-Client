@@ -23,7 +23,11 @@ Step 2 - Open the extension \
 Step 3 - Copy the text that you would like to use
 
 # Demo
-<video src="https://github.com/shaziwnl/ReText-Client/assets/121330440/40e9850f-77a7-4c9b-9265-d9ce8492462b" width="800" height="800"></video>
+<video src="https://github.com/shaziwnl/ReText-Client/assets/121330440/82de717a-5e56-4db9-ac94-db0539b1f7ab" width="800" height="800"></video>
+
+
+
+
 
 - Note that Grammarly didn't correct non-contextual errors like 'principle' -> 'principal'
 
