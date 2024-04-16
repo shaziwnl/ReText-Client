@@ -1,4 +1,4 @@
-# ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
+# 📜 ReText - An AI-Enabled Chrome Extension to assist you with your writing needs 📜
 
 ## Table of Contents
 * [Backend](https://github.com/shaziwnl/PennApps-Flask-Backend)
