@@ -29,7 +29,7 @@ Step 3 - Copy the text that you would like to use
 
 
 
-- Note that Grammarly didn't correct non-contextual errors like 'principle' -> 'principal'
+
 
 ## Technologies Used
 - HTML/CSS
