@@ -43,7 +43,7 @@ Project is complete, maintained by Sharang Goel and Hetarth Mahida
 ## Improvements
 - Additional testing for best prompts
 - Shifting from JS to TS
-- Refactoring Backend
+- Adding fine-tuning gpt model to reject invalid input
 
 
 ## Contact
