@@ -17,7 +17,6 @@ function App() {
   const [concise, setConcise] = useState("")
   const [verbose, setVerbose] = useState("")
   const [highlightedText, setHighlightedText] = useState("")
-  const [copiedText, setCopiedText] = useState("")
   const [history, setHistory] = useState([])
   const URL = import.meta.env.VITE_URL
 
@@ -31,7 +30,7 @@ function App() {
     return selectedText;
   }
 
-  function sendHighlightedText() {
+  function setSelectedText() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var activeTab = tabs[0]; // Get the tab we are currently on
 
@@ -45,23 +44,29 @@ function App() {
         // Handle the result returned by the content script
         var selectedText = result[0].result;
         setHighlightedText(selectedText)
-        console.log(selectedText);
 
-        if (selectedText) {
-          axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
-              .then(res => setRectified(res.data.completion))
-
-          axios.post(`${URL}/concise`, { sentence: selectedText }, config)
-              .then(res => setConcise(res.data.completion))
-
-          axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
-              .then(res => setVerbose(res.data.completion))
-          
-          setHistory(prev => [...prev, selectedText])
-        }
       }
     )
     })
+  }
+
+  function sendHighlightedText(selectedText) {
+    if (selectedText) {
+      axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
+          .then(res => setRectified(res.data.completion))
+
+      axios.post(`${URL}/concise`, { sentence: selectedText }, config)
+          .then(res => setConcise(res.data.completion))
+
+      axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
+          .then(res => setVerbose(res.data.completion))
+      
+      setHistory((prev) => {
+        if (prev.includes(selectedText)) return prev
+        else return [selectedText, ...prev]
+      })
+
+    }
   }
 
   useEffect(() => {
@@ -83,10 +88,16 @@ function App() {
   }, [history])
 
   useEffect(() => {
-    sendHighlightedText()
+    setSelectedText();
   }, [])
 
-  
+  useEffect(() => {
+    setConcise("")
+    setRectified("")
+    setVerbose("")
+    sendHighlightedText(highlightedText);
+  }, [highlightedText])
+
 
   useEffect(() => {
     if (useClipboard) {
@@ -102,17 +113,7 @@ function App() {
                       blob.text()
                           .then(text => {
                             console.log(text)
-                            setCopiedText(text)
-                            axios.post(`${URL}/rectify`, { sentence: text }, config)
-                                  .then(res => setRectified(res.data.completion))
-
-                            axios.post(`${URL}/concise`, { sentence: text }, config)
-                                .then(res => setConcise(res.data.completion))
-
-                            axios.post(`${URL}/verbose`, { sentence: text }, config)
-                                .then(res => setVerbose(res.data.completion))
-                            
-                            setHistory(prev => [...prev, text])
+                            setHighlightedText(text)
                           })
                     })
               }
@@ -203,7 +204,7 @@ function App() {
                 color='white'
                 /> 
               </div>)}
-            {(!rectified && (highlightedText || copiedText)) ?  <Loading/> : rectified}
+            {(!rectified && (highlightedText)) ?  <Loading/> : rectified}
           </div>
         </div>
 
@@ -220,7 +221,7 @@ function App() {
                 color='white'
                 />
               </div>)}
-            {(!concise && (highlightedText || copiedText)) ?  <Loading/> : concise}
+            {(!concise && (highlightedText)) ?  <Loading/> : concise}
           </div>
 
           <h4 className="sub-head">Clearer, more verbose</h4>
@@ -234,7 +235,7 @@ function App() {
                 color='white'
                 />
               </div>)}
-            {(!verbose && (highlightedText || copiedText)) ?  <Loading/> : verbose}
+            {(!verbose && (highlightedText)) ?  <Loading/> : verbose}
           </div>
         </div>
 
@@ -244,7 +245,7 @@ function App() {
       <div className='history'>
         {history.map((item) => {
           return (
-            <li className='history-item'>{item}</li>
+            <li className='history-item' onClick={() => {setHighlightedText(item)}}>{item}</li>
           )
         })}
       </div>
