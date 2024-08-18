@@ -18,6 +18,7 @@ function App() {
   const [verbose, setVerbose] = useState("")
   const [highlightedText, setHighlightedText] = useState("")
   const [copiedText, setCopiedText] = useState("")
+  const [history, setHistory] = useState([])
   const URL = import.meta.env.VITE_URL
 
   var config = { headers: {  
@@ -55,11 +56,31 @@ function App() {
 
           axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
               .then(res => setVerbose(res.data.completion))
+          
+          setHistory(prev => [...prev, selectedText])
         }
       }
     )
     })
   }
+
+  useEffect(() => {
+    chrome.storage.sync.get(['history'], (data) => {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+      } else {
+        setHistory(data.history ? data.history : []);
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    chrome.storage.sync.set({ history: history }, () => {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+      }
+    })
+  }, [history])
 
   useEffect(() => {
     sendHighlightedText()
@@ -88,6 +109,8 @@ function App() {
 
                             axios.post(`${URL}/verbose`, { sentence: text }, config)
                                 .then(res => setVerbose(res.data.completion))
+                            
+                            setHistory(prev => [...prev, text])
                           })
                     })
               }
@@ -123,7 +146,6 @@ function App() {
     }, 1000)
     return () => clearTimeout(timeout3)
   }, [copied3])
-  
 
   // Hover Effect
   const [isButtonVisible1, setIsButtonVisible1] = useState(false);
@@ -215,6 +237,15 @@ function App() {
         </div>
 
       </div>
+      
+      <h4 className='head'>History:</h4>
+      {(history === undefined || history.length == 0) ? <></> 
+        : history.map((item) => {
+        return (
+          <p>{item}</p>
+        )
+      })}
+      
     </>
   )
 }
