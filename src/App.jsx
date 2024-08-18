@@ -86,6 +86,8 @@ function App() {
     sendHighlightedText()
   }, [])
 
+  
+
   useEffect(() => {
     if (useClipboard) {
       navigator.clipboard.read()
@@ -238,13 +240,14 @@ function App() {
 
       </div>
       
-      <h4 className='head'>History:</h4>
-      {(history === undefined || history.length == 0) ? <></> 
-        : history.map((item) => {
-        return (
-          <p>{item}</p>
-        )
-      })}
+      <h4 className='head'>History</h4>
+      <div className='history'>
+        {history.map((item) => {
+          return (
+            <li className='history-item'>{item}</li>
+          )
+        })}
+      </div>
       
     </>
   )
