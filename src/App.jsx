@@ -243,6 +243,7 @@ function App() {
 
       </div>
       
+      {/* Still Need to implement Ellipsis on overflow */}
       <h4 className='head'>History</h4>
       <div className='history'>
         {history.map((item) => {
