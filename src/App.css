@@ -97,13 +97,9 @@ body {
 }
 
 .history-item {
-  margin-right: 1rem;
-  font-size: 1rem;
-  list-style-type: none;
+  height: 1.5rem;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.history-item:hover {
-  background-color: rgb(38, 38, 38);
-  opacity: 75%;
-  cursor: pointer
-}

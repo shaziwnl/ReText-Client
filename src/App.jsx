@@ -75,6 +75,8 @@ function App() {
         console.error(chrome.runtime.lastError);
       } else {
         setHistory(data.history ? data.history : []);
+        chrome.storage.sync.getBytesInUse('history')
+        .then((bytesInUse) => {console.log("BIU", bytesInUse)})
       }
     })
   }, [])
@@ -244,8 +246,9 @@ function App() {
       <h4 className='head'>History</h4>
       <div className='history'>
         {history.map((item) => {
+          item = item.charAt(0).toUpperCase() + item.slice(1)
           return (
-            <li className='history-item' onClick={() => {setHighlightedText(item)}}>{item}</li>
+            <div className='content history-item'>{item}</div>
           )
         })}
       </div>
