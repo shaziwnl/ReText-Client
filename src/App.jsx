@@ -6,6 +6,7 @@ import { Tooltip } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from "axios";
 import IOSSwitch from './components/IOSSwitch';
+import { DeleteOutlined } from '@mui/icons-material';
 
 function App() {
   // All States
@@ -26,8 +27,8 @@ function App() {
   }
 
   function extractSelectedText() {
-    var selectedText = window.getSelection().toString();
-    return selectedText;
+    var selectedText = window.getSelection()?.toString();
+    return selectedText || "";
   }
 
   function setSelectedText() {
@@ -47,6 +48,12 @@ function App() {
 
       }
     )
+    })
+  }
+
+  function removeHistoryItem(item) {
+    setHistory((prev) => {
+      return prev.filter((i) => i !== item)
     })
   }
 
@@ -99,7 +106,6 @@ function App() {
     setVerbose("")
     sendHighlightedText(highlightedText);
   }, [highlightedText])
-
 
   useEffect(() => {
     if (useClipboard) {
@@ -247,9 +253,12 @@ function App() {
       <h4 className='head'>History</h4>
       <div className='history'>
         {history.map((item) => {
-          item = item.charAt(0).toUpperCase() + item.slice(1)
+          const item2 = item.charAt(0).toUpperCase() + item.slice(1)
           return (
-            <div className='content history-item'>{item}</div>
+            <div className='history-item-wrapper'>
+              <div className='content history-item' onClick={() => setHighlightedText(item)}>{item2}</div>
+              <DeleteOutlined className='delete-history-btn' onClick={() => removeHistoryItem(item)} />
+            </div>
           )
         })}
       </div>
