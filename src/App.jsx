@@ -6,6 +6,7 @@ import { Tooltip } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import axios from "axios";
 import IOSSwitch from './components/IOSSwitch';
+import { DeleteOutlined } from '@mui/icons-material';
 
 function App() {
   // All States
@@ -17,7 +18,7 @@ function App() {
   const [concise, setConcise] = useState("")
   const [verbose, setVerbose] = useState("")
   const [highlightedText, setHighlightedText] = useState("")
-  const [copiedText, setCopiedText] = useState("")
+  const [history, setHistory] = useState([])
   const URL = import.meta.env.VITE_URL
 
   var config = { headers: {  
@@ -26,11 +27,11 @@ function App() {
   }
 
   function extractSelectedText() {
-    var selectedText = window.getSelection().toString();
-    return selectedText;
+    var selectedText = window.getSelection()?.toString();
+    return selectedText || "";
   }
 
-  function sendHighlightedText() {
+  function setSelectedText() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var activeTab = tabs[0]; // Get the tab we are currently on
 
@@ -44,26 +45,67 @@ function App() {
         // Handle the result returned by the content script
         var selectedText = result[0].result;
         setHighlightedText(selectedText)
-        console.log(selectedText);
 
-        if (selectedText) {
-          axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
-              .then(res => setRectified(res.data.completion))
-
-          axios.post(`${URL}/concise`, { sentence: selectedText }, config)
-              .then(res => setConcise(res.data.completion))
-
-          axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
-              .then(res => setVerbose(res.data.completion))
-        }
       }
     )
     })
   }
 
+  function removeHistoryItem(item) {
+    setHistory((prev) => {
+      return prev.filter((i) => i !== item)
+    })
+  }
+
+  function sendHighlightedText(selectedText) {
+    if (selectedText) {
+      axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
+          .then(res => setRectified(res.data.completion))
+
+      axios.post(`${URL}/concise`, { sentence: selectedText }, config)
+          .then(res => setConcise(res.data.completion))
+
+      axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
+          .then(res => setVerbose(res.data.completion))
+      
+      setHistory((prev) => {
+        if (prev.includes(selectedText)) return prev
+        else return [selectedText, ...prev]
+      })
+
+    }
+  }
+
   useEffect(() => {
-    sendHighlightedText()
+    chrome.storage.sync.get(['history'], (data) => {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+      } else {
+        setHistory(data.history ? data.history : []);
+        chrome.storage.sync.getBytesInUse('history')
+        .then((bytesInUse) => {console.log("BIU", bytesInUse)})
+      }
+    })
   }, [])
+
+  useEffect(() => {
+    chrome.storage.sync.set({ history: history }, () => {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+      }
+    })
+  }, [history])
+
+  useEffect(() => {
+    setSelectedText();
+  }, [])
+
+  useEffect(() => {
+    setConcise("")
+    setRectified("")
+    setVerbose("")
+    sendHighlightedText(highlightedText);
+  }, [highlightedText])
 
   useEffect(() => {
     if (useClipboard) {
@@ -79,15 +121,7 @@ function App() {
                       blob.text()
                           .then(text => {
                             console.log(text)
-                            setCopiedText(text)
-                            axios.post(`${URL}/rectify`, { sentence: text }, config)
-                                  .then(res => setRectified(res.data.completion))
-
-                            axios.post(`${URL}/concise`, { sentence: text }, config)
-                                .then(res => setConcise(res.data.completion))
-
-                            axios.post(`${URL}/verbose`, { sentence: text }, config)
-                                .then(res => setVerbose(res.data.completion))
+                            setHighlightedText(text)
                           })
                     })
               }
@@ -123,7 +157,6 @@ function App() {
     }, 1000)
     return () => clearTimeout(timeout3)
   }, [copied3])
-  
 
   // Hover Effect
   const [isButtonVisible1, setIsButtonVisible1] = useState(false);
@@ -179,7 +212,7 @@ function App() {
                 color='white'
                 /> 
               </div>)}
-            {(!rectified && (highlightedText || copiedText)) ?  <Loading/> : rectified}
+            {(!rectified && (highlightedText)) ?  <Loading/> : rectified}
           </div>
         </div>
 
@@ -196,7 +229,7 @@ function App() {
                 color='white'
                 />
               </div>)}
-            {(!concise && (highlightedText || copiedText)) ?  <Loading/> : concise}
+            {(!concise && (highlightedText)) ?  <Loading/> : concise}
           </div>
 
           <h4 className="sub-head">Clearer, more verbose</h4>
@@ -210,11 +243,26 @@ function App() {
                 color='white'
                 />
               </div>)}
-            {(!verbose && (highlightedText || copiedText)) ?  <Loading/> : verbose}
+            {(!verbose && (highlightedText)) ?  <Loading/> : verbose}
           </div>
         </div>
 
       </div>
+      
+      {/* Still Need to implement Ellipsis on overflow */}
+      <h4 className='head'>History</h4>
+      <div className='history'>
+        {history.map((item) => {
+          const item2 = item.charAt(0).toUpperCase() + item.slice(1)
+          return (
+            <div className='history-item-wrapper'>
+              <div className='content history-item' onClick={() => setHighlightedText(item)}>{item2}</div>
+              <DeleteOutlined className='delete-history-btn' onClick={() => removeHistoryItem(item)} />
+            </div>
+          )
+        })}
+      </div>
+      
     </>
   )
 }

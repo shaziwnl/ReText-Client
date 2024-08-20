@@ -1,8 +1,8 @@
 import React from "react";
-
+import { CircularProgress } from "@mui/material";
 
 export default function Loading() {
     return (
-        <h2>Loading...</h2>
+        <CircularProgress color="inherit" sx={{margin: 'auto', textAlign: 'center'}}/>
     )
 }
