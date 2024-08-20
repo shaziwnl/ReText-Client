@@ -61,12 +61,15 @@ function App() {
     if (selectedText) {
       axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
           .then(res => setRectified(res.data.completion))
+          .catch(e => setRectified(`Error Occurred: ${e.message}`))
 
       axios.post(`${URL}/concise`, { sentence: selectedText }, config)
           .then(res => setConcise(res.data.completion))
+          .catch(e => setConcise(`Error Occurred: ${e.message}`))
 
       axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
           .then(res => setVerbose(res.data.completion))
+          .catch(e => setVerbose(`Error Occurred: ${e.message}`))
       
       setHistory((prev) => {
         if (prev.includes(selectedText)) return prev
@@ -82,13 +85,14 @@ function App() {
         console.error(chrome.runtime.lastError);
       } else {
         setHistory(data.history ? data.history : []);
-        chrome.storage.sync.getBytesInUse('history')
-        .then((bytesInUse) => {console.log("BIU", bytesInUse)})
       }
     })
   }, [])
 
   useEffect(() => {
+    chrome.storage.sync.getBytesInUse('history')
+      .then((res) => {console.log("BIU", res)})
+    
     chrome.storage.sync.set({ history: history }, () => {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
