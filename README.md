@@ -10,7 +10,7 @@
 
 ## Download
 [Extension is available here! (Version 1.3)](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)<br>
-A high rating would be greatly appreciated, we will keep working on more optimized prompts and more features as we move forward, thank you!
+A high rating would be greatly appreciated, we will keep working on more features as we move forward, thank you!
 
 ## Versions
 - Version 1.0: An AI based text processing tool to rectify and simplify your texts so that your texting experience is as smooth as possible.
