@@ -51,27 +51,39 @@ function App() {
     })
   }
 
-  function removeHistoryItem(item) {
+  function removeHistoryItem(selectedText) {
     setHistory((prev) => {
-      return prev.filter((i) => i !== item)
+      return prev.filter((i) => i.selected !== selectedText)
     })
   }
 
-  function sendHighlightedText(selectedText) {
+  async function sendHighlightedText(selectedText) {
+
     if (selectedText) {
-      axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
-          .then(res => setRectified(res.data.completion))
+      const match = history.find((item) => item.selected === selectedText)
+      if (match !== undefined) {
+        setRectified(match.rectified)
+        setConcise(match.concise)
+        setVerbose(match.verbose)
+      } else {
+        const newItem = { selected: selectedText, rectified: "", concise: "", verbose: "" }
 
-      axios.post(`${URL}/concise`, { sentence: selectedText }, config)
-          .then(res => setConcise(res.data.completion))
+        const rectified = await axios.post(`${URL}/rectify`, { sentence: selectedText }, config)
+        const concise = await axios.post(`${URL}/concise`, { sentence: selectedText }, config)
+        const verbose = await axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
 
-      axios.post(`${URL}/verbose`, { sentence: selectedText }, config)
-          .then(res => setVerbose(res.data.completion))
-      
-      setHistory((prev) => {
-        if (prev.includes(selectedText)) return prev
-        else return [selectedText, ...prev]
-      })
+        newItem.rectified = rectified.data.completion
+        newItem.concise = concise.data.completion
+        newItem.verbose = verbose.data.completion
+
+        setRectified(newItem.rectified)
+        setConcise(newItem.concise)
+        setVerbose(newItem.verbose)
+        
+        setHistory((prev) => {
+          return [newItem, ...prev]
+        })
+      }
 
     }
   }
@@ -82,13 +94,14 @@ function App() {
         console.error(chrome.runtime.lastError);
       } else {
         setHistory(data.history ? data.history : []);
-        chrome.storage.sync.getBytesInUse('history')
-        .then((bytesInUse) => {console.log("BIU", bytesInUse)})
       }
     })
   }, [])
 
   useEffect(() => {
+    chrome.storage.sync.getBytesInUse('history')
+      .then((res) => {console.log("BIU", res)})
+    
     chrome.storage.sync.set({ history: history }, () => {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
@@ -252,7 +265,8 @@ function App() {
       {/* Still Need to implement Ellipsis on overflow */}
       <h4 className='head'>History</h4>
       <div className='history'>
-        {history.map((item) => {
+        {history.map((element) => {
+          const item = element.selected
           const item2 = item.charAt(0).toUpperCase() + item.slice(1)
           return (
             <div className='history-item-wrapper'>
