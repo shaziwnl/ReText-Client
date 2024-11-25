@@ -13,10 +13,11 @@
 A high rating would be greatly appreciated, we will keep working on more features as we move forward, thank you!
 
 ## Versions
-- Version 1.0: An AI based text processing tool to rectify and simplify your texts so that your texting experience is as smooth as possible.
+- Version 1.0: An AI-based text processing tool to rectify and simplify your texts so that your texting experience is as smooth as possible.
 - Version 1.1: Added loading state to inform users that a request has been sent
 - Version 1.2: Added option to allow users to use clipboard text when no text is highlighted and created new assets
 - Version 1.3: Added a new "history" feature that allows users to reuse the text sent by them earlier
+- Version 1.3.1: Added caching for history items significantly decreasing wait times for requests in history. Note - This will require history to be cleared on update/install, we apologize for any inconvenience beforehand
 
 ## Usage
 Step 1 - Highlight any text you want to rectify/rephrase \
