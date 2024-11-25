@@ -9,13 +9,14 @@
 <!-- * [License](#license) -->
 
 ## Download
-[Extension is available here! (Version 1.2)](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)<br>
-A high rating would be greatly appreciated, we will keep working on more optimized prompts and more features as we move forward, thank you!
+[Extension is available here! (Version 1.3)](https://chromewebstore.google.com/detail/retext/odiaofbnmdhgdlibchfcageipnldeceh)<br>
+A high rating would be greatly appreciated, we will keep working on more features as we move forward, thank you!
 
 ## Versions
 - Version 1.0: An AI based text processing tool to rectify and simplify your texts so that your texting experience is as smooth as possible.
 - Version 1.1: Added loading state to inform users that a request has been sent
 - Version 1.2: Added option to allow users to use clipboard text when no text is highlighted and created new assets
+- Version 1.3: Added a new "history" feature that allows users to reuse the text sent by them earlier
 
 ## Usage
 Step 1 - Highlight any text you want to rectify/rephrase \
