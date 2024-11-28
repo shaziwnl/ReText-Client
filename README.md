@@ -34,8 +34,8 @@ Step 3 - Copy the text that you would like to use
 
 
 ## Technologies Used
-- HTML/CSS
-- JavaScript (React)
+- HTML5/CSS3
+- JavaScript (React.js)
 - Python (Flask - WSGI server with Waitress)
 
 
@@ -49,7 +49,7 @@ Project is complete, maintained by Sharang Goel and Hetarth Mahida
 
 
 ## Contact
-Sharang Goel: sharang.goel@thesymbol.ca or sharang.goel@uwaterloo.ca\
+Sharang Goel: sharang.goel@thesymbol.ca or sharang.goel@uwaterloo.ca
 Hetarth Mahida: hetarthmahida@thesymbol.ca or hbmahida@uwaterloo.ca
 
 
