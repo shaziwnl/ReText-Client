@@ -22,8 +22,8 @@ function App() {
   const URL = import.meta.env.VITE_URL
 
   var config = { headers: {  
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'}
+    'Content-Type': 'application/json'
+    }
   }
 
   function extractSelectedText() {
